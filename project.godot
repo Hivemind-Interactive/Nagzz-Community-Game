@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "BaseState",
 "language": "GDScript",
-"path": "res://Scenes/Player/base_state.gd"
+"path": "res://scenes/player/base_state.gd"
 }, {
 "base": "",
 "class": "GitAPI",
@@ -22,22 +22,22 @@ _global_script_classes=[ {
 "base": "BaseState",
 "class": "Idle",
 "language": "GDScript",
-"path": "res://Scenes/Player/idle.gd"
+"path": "res://scenes/player/idle.gd"
 }, {
-"base": "Reference",
+"base": "BaseState",
 "class": "Jump",
 "language": "GDScript",
-"path": "res://Scenes/Player/jump.gd"
+"path": "res://scenes/player/jump.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://Scenes/Player/player.gd"
+"path": "res://scenes/player/player.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://Scenes/Player/state_machine.gd"
+"path": "res://scenes/player/state_machine.gd"
 } ]
 _global_script_class_icons={
 "BaseState": "",
@@ -51,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Nagzz Community Game"
-run/main_scene="res://Scenes/test_scene.tscn"
+run/main_scene="res://scenes/test_scene.tscn"
 config/icon="res://icon.png"
 
 [gdnative]
