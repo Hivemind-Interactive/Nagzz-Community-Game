@@ -1,10 +1,6 @@
 class_name Player
 extends KinematicBody2D
 
-# should_player_stop: bool, some_dialog_info: int
-#warning-ignore:unused_signal
-signal dialog_started(should_player_stop, some_dialog_info)
-
 # Consts
 #TODO move to a separate file.
 const GRAVITY: float = 1500.0
@@ -46,9 +42,3 @@ func can_jump() -> bool:
 
 func can_interact() -> bool:
 	return can_player_interact
-
-
-func _on_Player_dialog_started(should_player_stop: bool, some_dialog_info: int):
-	can_player_jump = not should_player_stop
-	can_player_interact = not should_player_stop
-	print("some dialog info: ", some_dialog_info)

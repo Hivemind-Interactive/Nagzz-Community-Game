@@ -12,8 +12,7 @@ func _ready():
 	assert(shape != null)
 	assert(_interactable != null)
 
-	if shape != null:
-		_interactable.shape = shape
+	_interactable.shape = shape
 
 
 func set_shape(new_shape: Shape2D):
@@ -22,7 +21,6 @@ func set_shape(new_shape: Shape2D):
 		_interactable.shape = new_shape
 
 
-func _on_Interactable_interacted(player: Player):
-	assert(player.has_signal("dialog_started"))
-	player.emit_signal("dialog_started", true, 2)
-
+func _on_Interactable_interacted(_player: Player):
+	# TODO display dialog or whatever the npc should do
+	pass

@@ -13,8 +13,7 @@ func _ready():
 	assert(shape != null)
 	assert(_coll_shape_2d != null)
 
-	if shape != null:
-		_coll_shape_2d.shape = shape
+	_coll_shape_2d.shape = shape
 
 
 func set_shape(new_shape):
