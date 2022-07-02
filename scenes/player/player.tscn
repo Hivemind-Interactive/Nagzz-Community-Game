@@ -57,6 +57,5 @@ script = ExtResource( 7 )
 scale = Vector2( 5.08, 6.08 )
 shape = SubResource( 5 )
 
-[connection signal="dialog_started" from="." to="." method="_on_Player_dialog_started"]
 [connection signal="area_entered" from="InteractionBox" to="InteractionBox" method="_on_InteractionBox_area_entered"]
 [connection signal="area_exited" from="InteractionBox" to="InteractionBox" method="_on_InteractionBox_area_exited"]
