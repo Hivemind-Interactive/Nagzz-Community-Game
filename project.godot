@@ -22,7 +22,12 @@ _global_script_classes=[ {
 "base": "BaseState",
 "class": "Idle",
 "language": "GDScript",
-"path": "res://scenes/player/idle.gd"
+"path": "res://scenes/player/on_ground.gd"
+}, {
+"base": "BaseState",
+"class": "InAir",
+"language": "GDScript",
+"path": "res://scenes/player/in_air.gd"
 }, {
 "base": "BaseState",
 "class": "Jump",
@@ -43,6 +48,7 @@ _global_script_class_icons={
 "BaseState": "",
 "GitAPI": "",
 "Idle": "",
+"InAir": "",
 "Jump": "",
 "Player": "",
 "StateMachine": ""
