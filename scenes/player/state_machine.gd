@@ -23,7 +23,7 @@ func _ready():
 		assert(state != null)
 	
 	print("Created _player state machine")
-	get_current_state()._enter(get_physics_process_delta_time())
+	get_current_state()._enter()
 
 func get_current_state():
 	return _states[current_state]
@@ -33,7 +33,7 @@ func update(delta: float):
 	_states[current_state].physics_process(delta)
 
 
-func transition_to(state: int, delta: float):
-	get_current_state()._exit(delta)
+func transition_to(state: int):
+	get_current_state()._exit()
 	current_state = state
-	get_current_state()._enter(delta)
+	get_current_state()._enter()

@@ -3,12 +3,12 @@ extends BaseState
 
 # BaseState interface implementation.
 
-func _enter(delta: float):
-	._enter(delta)
+func _enter():
+	._enter()
 	print("Enter OnGround state.")
 	
-func _exit(delta: float):
-	._exit(delta)
+func _exit():
+	._exit()
 	print("Exit OnGround state.")
 	
 func _update(delta: float):
@@ -28,5 +28,5 @@ func _run_update(delta: float):
 	_player.apply_velocity(delta)
 	
 	if not _player.is_on_floor() and _player._velocity.y > 0:
-		_state_machine.transition_to(_state_machine.State.IN_AIR, delta)
+		_state_machine.transition_to(_state_machine.State.IN_AIR)
 		return

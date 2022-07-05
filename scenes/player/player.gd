@@ -9,7 +9,7 @@ const RUN_SPEED: float = 275.0
 
 enum MOVE_DIRECTION {
 	LEFT = -1,
-	NONE = 0
+	NONE = 0,
 	RIGHT = 1
 }
 # Consts end
@@ -29,7 +29,11 @@ func _ready():
 
 func _physics_process(delta: float):
 	_state_machine.update(delta)
-	$StatusLabelDebug.text = "%s\n x: %3.2f  y: %3.2f" % [_state_machine.State.keys()[_state_machine.current_state], _velocity.x, _velocity.y]
+	$StatusLabelDebug.text = "%s\n x: %3.2f  y: %3.2f" % [
+			_state_machine.State.keys()[_state_machine.current_state],
+			_velocity.x,
+			_velocity.y
+	]
 
 
 func apply_velocity(_delta: float):
@@ -52,10 +56,11 @@ func can_jump() -> bool:
 func can_interact() -> bool:
 	return can_player_interact
 
+
 func get_move_input_direction() -> int:
 	var move_direction := 0
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("move_right"):
 		move_direction += MOVE_DIRECTION.RIGHT
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("move_left"):
 		move_direction += MOVE_DIRECTION.LEFT
 	return move_direction

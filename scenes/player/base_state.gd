@@ -11,10 +11,10 @@ func _ready():
 
 # BaseState interface implementation.
 
-func _enter(_delta: float):
+func _enter():
 	pass
 	
-func _exit(_delta: float):
+func _exit():
 	pass
 
 func _update(_delta: float):
@@ -31,6 +31,6 @@ func physics_process(delta: float):
 			and _player.can_jump() 
 			and _state_machine.current_state != _state_machine.State.JUMP
 	):
-		_state_machine.transition_to(_state_machine.State.JUMP, delta)
+		_state_machine.transition_to(_state_machine.State.JUMP)
 		
 	_update(delta)
