@@ -8,9 +8,11 @@ func _enter():
 	print("Enter Jump state.")
 	_player.add_force(Vector2(0, -_player.JUMP_FORCE))
 	
+	
 func _exit():
 	._exit()
 	print("Exit Jump state.")
+	
 	
 func _update(delta: float):
 	._update(delta)

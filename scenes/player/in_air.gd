@@ -7,9 +7,11 @@ func _enter():
 	._enter()
 	print("Enter InAir state.")
 	
+	
 func _exit():
 	._exit()
 	print("Exit InAir state.")
+	
 	
 func _update(delta: float):
 	._update(delta)

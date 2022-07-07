@@ -17,6 +17,7 @@ onready var _states: Dictionary = {
 
 onready var _player := self.get_parent() as Player
 
+
 func _ready():
 	assert(_player != null)
 	for state in _states.values():
@@ -24,6 +25,7 @@ func _ready():
 	
 	print("Created _player state machine")
 	get_current_state()._enter()
+
 
 func get_current_state():
 	return _states[current_state]

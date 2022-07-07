@@ -7,16 +7,17 @@ func _enter():
 	._enter()
 	print("Enter OnGround state.")
 	
+	
 func _exit():
 	._exit()
 	print("Exit OnGround state.")
+
 	
 func _update(delta: float):
 	._update(delta)
 	_run_update(delta)
 	
 # BaseState interface end.
-
 
 
 func _run_update(delta: float):
