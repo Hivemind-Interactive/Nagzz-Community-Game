@@ -2,24 +2,23 @@ class_name StateMachine
 extends Node
 
 enum State {
-	IDLE,
-	RUN,
+	ON_GROUND,
 	JUMP,
-	IN_AIR
+	IN_AIR,
 }
 
-var current_state: int = State.IDLE
+var current_state: int = State.ON_GROUND
 
 onready var _states: Dictionary = {
-	(State.IDLE): $BaseState/Idle,
-	#(State.RUN): $Run,
+	(State.ON_GROUND): $BaseState/OnGround,
 	(State.JUMP): $BaseState/Jump,
-	#(State.IN_AIR): $In_air,
+	(State.IN_AIR): $BaseState/InAir,
 }
 
 onready var _player := self.get_parent() as Player
 
-func _ready() -> void:
+
+func _ready():
 	assert(_player != null)
 	for state in _states.values():
 		assert(state != null)
@@ -27,16 +26,16 @@ func _ready() -> void:
 	print("Created _player state machine")
 	get_current_state()._enter()
 
+
 func get_current_state():
 	return _states[current_state]
 
 
-func update(delta: float) -> void:
+func update(delta: float):
 	_states[current_state].physics_process(delta)
 
 
-func transition_to(state: int) -> void:
+func transition_to(state: int):
 	get_current_state()._exit()
 	current_state = state
 	get_current_state()._enter()
-	

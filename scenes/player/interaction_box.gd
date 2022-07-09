@@ -11,7 +11,7 @@ func _process(_delta):
 		_interact()
 
 
-func _interact() -> void:
+func _interact():
 	print("interaction started")
 
 	var closest = _get_closest_interactable()
