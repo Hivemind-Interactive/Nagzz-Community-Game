@@ -40,6 +40,13 @@ tile_data = PoolIntArray( 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
+[node name="On palyer" type="Camera2D" parent="Player"]
+current = true
+
+[node name="On point" type="Camera2D" parent="Player"]
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+
 [node name="TestNpc" parent="." instance=ExtResource( 3 )]
 position = Vector2( 334, 469 )
 
