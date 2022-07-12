@@ -1,6 +1,7 @@
 class_name Idle
 extends BaseState
 
+
 # BaseState interface implementation.
 
 func _enter():
@@ -23,10 +24,10 @@ func _update(delta: float):
 func _run_update(delta: float):
 	var move_direction = _player.get_move_input_direction()
 
-	_player._velocity.x = _player.RUN_SPEED * move_direction
+	_player._velocity.x = _player.RUN_MAX_SPEED * move_direction
 	
 	_player.apply_gravity(delta)
-	_player.apply_velocity(delta)
+	_player.move_player(delta)
 	
 	if not _player.is_on_floor() and _player._velocity.y > 0:
 		_state_machine.transition_to(_state_machine.State.IN_AIR)

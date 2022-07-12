@@ -2,10 +2,18 @@ class_name Player
 extends KinematicBody2D
 
 # Consts
-#TODO move to a separate file.
-const GRAVITY: float = 1500.0
-const JUMP_FORCE: float = 800.0
-const RUN_SPEED: float = 275.0
+const GRAVITY := 1500.0
+const JUMP_FORCE := Vector2(50, -750)
+const AIR_FRICTION := 185.0
+const AIR_MOVE_ACCELERATION := 625.0
+# So that the player falls faster than accelerates upwards.
+const JUMP_FALL_MULTIPLIER: float = 1.3
+# Jump buffer time, in seconds.
+const JUMP_BUFFER_TIME_SECS := 0.12 # Rougly 7 frames at 60 FPS.
+# Coyote time https://developer.amazon.com/blogs/appstore/post/9d2094ed-53cb-4a3a-a5cf-c7f34bca6cd3/coding-imprecise-controls-to-make-them-feel-more-precise
+const COYOTE_TIME_SECS := 0.1
+
+const RUN_MAX_SPEED: float = 300.0
 
 enum MOVE_DIRECTION {
 	LEFT = -1,
@@ -14,12 +22,13 @@ enum MOVE_DIRECTION {
 }
 # Consts end
 
+
 export var can_player_jump := true
 export var can_player_interact := true
 
 onready var _state_machine = $StateMachine
 
-var _velocity: Vector2 = Vector2.ZERO
+var _velocity := Vector2.ZERO
 
 
 func _ready():
@@ -36,7 +45,7 @@ func _physics_process(delta: float):
 	]
 
 
-func apply_velocity(_delta: float):
+func move_player(_delta: float):
 	$VelocityDirectionDebugArrow.look_at(get_global_position() + _velocity)
 	_velocity = self.move_and_slide(_velocity, Vector2.UP)
 
@@ -47,6 +56,19 @@ func apply_gravity(delta: float, gravity_mult: float = 1.0):
 
 func add_force(force: Vector2):
 	_velocity += force
+
+
+func air_move(delta: float):
+	var move_direction = get_move_input_direction()
+	_velocity.x += AIR_MOVE_ACCELERATION * move_direction * delta
+	_velocity.x = sign(_velocity.x) * min(RUN_MAX_SPEED, abs(_velocity.x))
+
+
+func apply_air_friction(delta: float):
+	var movement_direction = sign(_velocity.x)
+	_velocity.x = abs(_velocity.x) - AIR_FRICTION*delta
+	_velocity.x = max(_velocity.x, 0)
+	_velocity.x *= movement_direction
 
 
 func can_jump() -> bool:

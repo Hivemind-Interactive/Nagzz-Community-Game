@@ -32,5 +32,7 @@ func physics_process(delta: float):
 			and _state_machine.current_state != _state_machine.State.JUMP
 	):
 		_state_machine.transition_to(_state_machine.State.JUMP)
+		_state_machine.get_current_state()._update(delta)
+		return
 		
 	_update(delta)
