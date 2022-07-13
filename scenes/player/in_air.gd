@@ -24,6 +24,7 @@ func _update(delta: float):
 	if _player.is_on_floor():
 		_state_machine.transition_to(_state_machine.State.ON_GROUND)
 
+	_player.apply_air_friction(delta)
 	_player.apply_gravity(delta)
 
 	_coyote_time_elapsed += delta
