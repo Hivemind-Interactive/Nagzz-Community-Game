@@ -5,17 +5,13 @@ extends BaseState
 var _coyote_time_elapsed := 0.0
 
 
-# BaseState interface implementation.
-
 func _enter():
 	._enter()
-	print("Enter InAir state.")
 	_coyote_time_elapsed = 0.0
 	
 	
 func _exit():
 	._exit()
-	print("Exit InAir state.")
 	
 	
 func _update(delta: float):
@@ -39,4 +35,3 @@ func _update(delta: float):
 	_player.air_move(delta)
 	_player.move_player(delta)
 
-# BaseState interface end.
