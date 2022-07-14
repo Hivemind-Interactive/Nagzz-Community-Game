@@ -2,14 +2,15 @@ class_name Player
 extends KinematicBody2D
 
 # Consts
-const GRAVITY := 1500.0
-const JUMP_FORCE := Vector2(50, -750)
-const AIR_FRICTION := 185.0
+const GRAVITY := 1650.0
+const JUMP_FORCE := Vector2(50, -850)
+const AIR_FRICTION := 250.0
 const AIR_MOVE_ACCELERATION := 625.0
 # So that the player falls faster than accelerates upwards.
 const JUMP_FALL_MULTIPLIER: float = 1.3
 # Jump buffer time, in seconds.
 const JUMP_BUFFER_TIME_SECS := 0.12 # Rougly 7 frames at 60 FPS.
+const JUMP_CUT_FORCE := 200
 # Coyote time https://developer.amazon.com/blogs/appstore/post/9d2094ed-53cb-4a3a-a5cf-c7f34bca6cd3/coding-imprecise-controls-to-make-them-feel-more-precise
 const COYOTE_TIME_SECS := 0.1
 
@@ -32,7 +33,6 @@ var _velocity := Vector2.ZERO
 
 
 func _ready():
-	print("Player node created")
 	assert(_state_machine != null)
 
 

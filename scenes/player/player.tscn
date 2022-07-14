@@ -79,5 +79,8 @@ x: 1024  y: 4534"
 align = 1
 valign = 1
 
+[node name="On palyer" type="Camera2D" parent="."]
+current = true
+
 [connection signal="area_entered" from="InteractionBox" to="InteractionBox" method="_on_InteractionBox_area_entered"]
 [connection signal="area_exited" from="InteractionBox" to="InteractionBox" method="_on_InteractionBox_area_exited"]
