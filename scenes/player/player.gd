@@ -1,6 +1,10 @@
 class_name Player
 extends KinematicBody2D
 
+#Projectile
+var PROJECTILE = preload("res://scenes/projectiles/testprojectile.tscn")
+onready var last_attack_time := 1.0
+const ATTACK_COOLDOWN := 0.2
 # Consts
 const GRAVITY := 1650.0
 const JUMP_FORCE := Vector2(50, -850)
@@ -37,6 +41,9 @@ func _ready():
 
 
 func _physics_process(delta: float):
+	if Input.is_action_pressed("attack") and last_attack_time > ATTACK_COOLDOWN:
+		fire_projecile()
+	last_attack_time += delta
 	_state_machine.update(delta)
 	$StatusLabelDebug.text = "%s\n x: %3.2f  y: %3.2f" % [
 			_state_machine.State.keys()[_state_machine.current_state],
@@ -44,6 +51,17 @@ func _physics_process(delta: float):
 			_velocity.y
 	]
 
+
+func fire_projecile():
+	if PROJECTILE:
+		var projectile = PROJECTILE.instance()
+		projectile.player_velocity = _velocity
+		get_tree().current_scene.add_child(projectile)
+		projectile.global_position = self.global_position
+		var rotation = self.global_position.direction_to(get_global_mouse_position()).angle()
+		projectile.rotation = rotation
+		last_attack_time = 0.0
+		print("-------------------------\nFired projectile\n-------------------------")
 
 func move_player(_delta: float):
 	$VelocityDirectionDebugArrow.look_at(get_global_position() + _velocity)
