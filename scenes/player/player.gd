@@ -29,6 +29,7 @@ export var can_player_interact := true
 onready var _state_machine = $StateMachine
 
 var _velocity := Vector2.ZERO
+var health_stats = PlayerHp
 
 
 func _ready():
@@ -86,3 +87,8 @@ func get_move_input_direction() -> int:
 	if Input.is_action_pressed("move_left"):
 		move_direction += MOVE_DIRECTION.LEFT
 	return move_direction
+
+
+func _on_Area2D_area_entered(area):
+	health_stats.health -= area.damage
+
