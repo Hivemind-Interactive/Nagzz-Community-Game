@@ -1,10 +1,6 @@
 class_name Player
 extends KinematicBody2D
 
-#Projectile
-var PROJECTILE = preload("res://scenes/projectiles/testprojectile.tscn")
-onready var last_attack_time := 1.0
-const ATTACK_COOLDOWN := 0.2
 # Consts
 const GRAVITY := 1650.0
 const JUMP_FORCE := Vector2(50, -850)
@@ -17,6 +13,7 @@ const JUMP_BUFFER_TIME_SECS := 0.12 # Rougly 7 frames at 60 FPS.
 const JUMP_CUT_FORCE := 200
 # Coyote time https://developer.amazon.com/blogs/appstore/post/9d2094ed-53cb-4a3a-a5cf-c7f34bca6cd3/coding-imprecise-controls-to-make-them-feel-more-precise
 const COYOTE_TIME_SECS := 0.1
+const ATTACK_COOLDOWN := 0.2
 
 const RUN_MAX_SPEED: float = 300.0
 
@@ -27,13 +24,14 @@ enum MOVE_DIRECTION {
 }
 # Consts end
 
-
 export var can_player_jump := true
 export var can_player_interact := true
 
 onready var _state_machine = $StateMachine
 
 var _velocity := Vector2.ZERO
+
+var last_attack_time := 1.0
 
 
 func _ready():
@@ -53,15 +51,12 @@ func _physics_process(delta: float):
 
 
 func fire_projecile():
-	if PROJECTILE:
-		var projectile = PROJECTILE.instance()
-		projectile.player_velocity = _velocity
-		get_tree().current_scene.add_child(projectile)
-		projectile.global_position = self.global_position
-		var rotation = self.global_position.direction_to(get_global_mouse_position()).angle()
-		projectile.rotation = rotation
-		last_attack_time = 0.0
-		print("-------------------------\nFired projectile\n-------------------------")
+	var projectile = preload("res://scenes/projectiles/testprojectile.tscn").instance()
+	last_attack_time = projectile.init(_velocity, global_position,
+		global_position.direction_to(get_global_mouse_position()).angle())
+	get_tree().current_scene.add_child(projectile)
+	print("-------------------------\nFired projectile\n-------------------------")
+
 
 func move_player(_delta: float):
 	$VelocityDirectionDebugArrow.look_at(get_global_position() + _velocity)

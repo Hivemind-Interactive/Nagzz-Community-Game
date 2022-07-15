@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 10 )
 
-[node name="projectile" type="Area2D"]
+[node name="Projectile" type="Area2D"]
 collision_layer = 8
 collision_mask = 17
 script = ExtResource( 1 )
@@ -20,6 +20,6 @@ texture = ExtResource( 2 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
-[connection signal="area_entered" from="." to="." method="_on_projectile_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_projectile_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_Projectile_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
