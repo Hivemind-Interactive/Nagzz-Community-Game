@@ -29,7 +29,12 @@ export var can_player_interact := true
 onready var _state_machine = $StateMachine
 
 var _velocity := Vector2.ZERO
+<<<<<<< Updated upstream
 var health_stats = PlayerHp
+=======
+
+var last_attack_time := 1.0
+>>>>>>> Stashed changes
 
 
 func _ready():
@@ -89,6 +94,13 @@ func get_move_input_direction() -> int:
 	return move_direction
 
 
+<<<<<<< Updated upstream
 func _on_Area2D_area_entered(area):
 	health_stats.health -= area.damage
+=======
+
+
+
+
+>>>>>>> Stashed changes
 
