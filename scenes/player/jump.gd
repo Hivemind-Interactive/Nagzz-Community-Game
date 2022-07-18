@@ -5,17 +5,13 @@ extends BaseState
 var _last_jump_pressed_elapsed_time := 0.0
 
 
-# BaseState interface implementation.
-
 func _enter():
 	._enter()
-	print("Enter Jump state.")
 	apply_jump_force()
 
 
 func _exit():
 	._exit()
-	print("Exit Jump state.")
 
 
 func apply_jump_force():
@@ -26,6 +22,10 @@ func apply_jump_force():
 
 func _update(delta: float):
 	._update(delta)
+	
+	if Input.is_action_just_released("jump") and _player._velocity.y <= -_player.JUMP_CUT_FORCE:
+		print("-------------------------\nJump cut\n-------------------------")
+		_player._velocity.y += _player.JUMP_CUT_FORCE
 
 	_last_jump_pressed_elapsed_time += delta
 	if Input.is_action_just_pressed("jump"):
@@ -45,5 +45,3 @@ func _update(delta: float):
 		else:
 			_state_machine.transition_to(StateMachine.State.ON_GROUND)
 
-
-# BaseState interface end.

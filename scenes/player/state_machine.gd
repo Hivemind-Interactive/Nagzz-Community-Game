@@ -23,7 +23,6 @@ func _ready():
 	for state in _states.values():
 		assert(state != null)
 	
-	print("Created _player state machine")
 	get_current_state()._enter()
 
 
