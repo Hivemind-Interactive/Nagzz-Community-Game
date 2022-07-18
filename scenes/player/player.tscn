@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/player/on_ground.gd" type="Script" id=1]
 [ext_resource path="res://scenes/player/player.gd" type="Script" id=2]
@@ -7,7 +7,11 @@
 [ext_resource path="res://scenes/player/state_machine.gd" type="Script" id=5]
 [ext_resource path="res://scenes/player/base_state.gd" type="Script" id=6]
 [ext_resource path="res://scenes/player/interaction_box.gd" type="Script" id=7]
+[ext_resource path="res://scenes/player/HitBox.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/player/in_air.gd" type="Script" id=9]
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 24, 31.5 )
 
 [sub_resource type="RectangleShape2D" id=5]
 
@@ -27,6 +31,14 @@ position = Vector2( 233, 43 )
 collision_layer = 2
 collision_mask = 3
 script = ExtResource( 2 )
+
+[node name="HitBox" parent="." instance=ExtResource( 8 )]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2( 0, 0.5 )
+shape = SubResource( 7 )
 
 [node name="InteractionBox" type="Area2D" parent="."]
 visible = false
@@ -82,5 +94,8 @@ valign = 1
 [node name="On palyer" type="Camera2D" parent="."]
 current = true
 
+[connection signal="area_entered" from="HitBox" to="HitBox" method="_on_HitBox_area_entered"]
 [connection signal="area_entered" from="InteractionBox" to="InteractionBox" method="_on_InteractionBox_area_entered"]
 [connection signal="area_exited" from="InteractionBox" to="InteractionBox" method="_on_InteractionBox_area_exited"]
+
+[editable path="HitBox"]
