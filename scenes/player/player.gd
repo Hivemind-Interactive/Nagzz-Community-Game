@@ -13,7 +13,6 @@ const JUMP_BUFFER_TIME_SECS := 0.12 # Rougly 7 frames at 60 FPS.
 const JUMP_CUT_FORCE := 200
 # Coyote time https://developer.amazon.com/blogs/appstore/post/9d2094ed-53cb-4a3a-a5cf-c7f34bca6cd3/coding-imprecise-controls-to-make-them-feel-more-precise
 const COYOTE_TIME_SECS := 0.1
-const ATTACK_COOLDOWN := 0.2
 
 const RUN_MAX_SPEED: float = 300.0
 
@@ -24,14 +23,11 @@ enum MOVE_DIRECTION {
 }
 # Consts end
 
-export var can_player_jump := true
-export var can_player_interact := true
 
+onready var weapon = $Weapon
 onready var _state_machine = $StateMachine
 
-var _velocity := Vector2.ZERO
-
-var last_attack_time := 1.0
+var velocity := Vector2.ZERO
 
 
 func _ready():
@@ -39,57 +35,42 @@ func _ready():
 
 
 func _physics_process(delta: float):
-	if Input.is_action_pressed("attack") and last_attack_time > ATTACK_COOLDOWN:
-		fire_projecile()
-	last_attack_time += delta
 	_state_machine.update(delta)
 	$StatusLabelDebug.text = "%s\n x: %3.2f  y: %3.2f" % [
 			_state_machine.State.keys()[_state_machine.current_state],
-			_velocity.x,
-			_velocity.y
+			velocity.x,
+			velocity.y
 	]
 
 
-func fire_projecile():
-	var projectile = preload("res://scenes/projectiles/testprojectile.tscn").instance()
-	last_attack_time = projectile.init(_velocity, global_position,
-		global_position.direction_to(get_global_mouse_position()).angle())
-	get_tree().current_scene.add_child(projectile)
-	print("-------------------------\nFired projectile\n-------------------------")
-
-
 func move_player(_delta: float):
-	$VelocityDirectionDebugArrow.look_at(get_global_position() + _velocity)
-	_velocity = self.move_and_slide(_velocity, Vector2.UP)
+	$VelocityDirectionDebugArrow.look_at(get_global_position() + velocity)
+	velocity = self.move_and_slide(velocity, Vector2.UP)
 
 
 func apply_gravity(delta: float, gravity_mult: float = 1.0):
-	_velocity.y += GRAVITY * gravity_mult * delta
+	velocity.y += GRAVITY * gravity_mult * delta
 
 
 func add_force(force: Vector2):
-	_velocity += force
+	velocity += force
 
 
 func air_move(delta: float):
 	var move_direction = get_move_input_direction()
-	_velocity.x += AIR_MOVE_ACCELERATION * move_direction * delta
-	_velocity.x = sign(_velocity.x) * min(RUN_MAX_SPEED, abs(_velocity.x))
+	velocity.x += AIR_MOVE_ACCELERATION * move_direction * delta
+	velocity.x = sign(velocity.x) * min(RUN_MAX_SPEED, abs(velocity.x))
 
 
 func apply_air_friction(delta: float):
-	var movement_direction = sign(_velocity.x)
-	_velocity.x = abs(_velocity.x) - AIR_FRICTION*delta
-	_velocity.x = max(_velocity.x, 0)
-	_velocity.x *= movement_direction
+	var movement_direction = sign(velocity.x)
+	velocity.x = abs(velocity.x) - AIR_FRICTION*delta
+	velocity.x = max(velocity.x, 0)
+	velocity.x *= movement_direction
 
 
 func can_jump() -> bool:
-	return self.is_on_floor() and can_player_jump
-
-
-func can_interact() -> bool:
-	return can_player_interact
+	return self.is_on_floor()
 
 
 func get_move_input_direction() -> int:

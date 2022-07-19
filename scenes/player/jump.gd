@@ -23,9 +23,8 @@ func apply_jump_force():
 func _update(delta: float):
 	._update(delta)
 	
-	if Input.is_action_just_released("jump") and _player._velocity.y <= -_player.JUMP_CUT_FORCE:
-		print("-------------------------\nJump cut\n-------------------------")
-		_player._velocity.y += _player.JUMP_CUT_FORCE
+	if Input.is_action_just_released("jump") and _player.velocity.y <= -_player.JUMP_CUT_FORCE:
+		_player.velocity.y += _player.JUMP_CUT_FORCE
 
 	_last_jump_pressed_elapsed_time += delta
 	if Input.is_action_just_pressed("jump"):
@@ -33,14 +32,13 @@ func _update(delta: float):
 
 	_player.apply_air_friction(delta)
 	_player.air_move(delta)
-	_player.apply_gravity(delta, 1.0 if _player._velocity.y < 0 else _player.JUMP_FALL_MULTIPLIER)
+	_player.apply_gravity(delta, 1.0 if _player.velocity.y < 0 else _player.JUMP_FALL_MULTIPLIER)
 	_player.move_player(delta)
 
 	# First check is needed because the first frame after entering the jump state
 	# is_on_floor will still return true until the next move.
-	if _player._velocity.y >= 0 and _player.is_on_floor():
+	if _player.velocity.y >= 0 and _player.is_on_floor():
 		if _last_jump_pressed_elapsed_time <= _player.JUMP_BUFFER_TIME_SECS:
-			print("-------------------------\nBuffered jump\n-------------------------")
 			apply_jump_force()
 		else:
 			_state_machine.transition_to(StateMachine.State.ON_GROUND)
