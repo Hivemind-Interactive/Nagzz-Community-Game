@@ -17,10 +17,12 @@ const ATTACK_COOLDOWN := 0.2
 
 const RUN_MAX_SPEED: float = 300.0
 
+const PowerupCard := preload("res://scenes/powerup_select/powerup_card.gd")
+
 enum MOVE_DIRECTION {
 	LEFT = -1,
 	NONE = 0,
-	RIGHT = 1
+	RIGHT = 1,
 }
 # Consts end
 
@@ -28,6 +30,7 @@ export var can_player_jump := true
 export var can_player_interact := true
 
 onready var _state_machine = $StateMachine
+onready var _powerup_select_ui := $"UI/PowerupSelect" as Control
 
 var _velocity := Vector2.ZERO
 
@@ -36,6 +39,7 @@ var last_attack_time := 1.0
 
 func _ready():
 	assert(_state_machine != null)
+	assert(_powerup_select_ui != null)
 
 
 func _physics_process(delta: float):
@@ -52,8 +56,11 @@ func _physics_process(delta: float):
 
 func fire_projecile():
 	var projectile = preload("res://scenes/projectiles/testprojectile.tscn").instance()
-	last_attack_time = projectile.init(_velocity, global_position,
-		global_position.direction_to(get_global_mouse_position()).angle())
+	last_attack_time = projectile.init(
+		_velocity,
+		global_position,
+		global_position.direction_to(get_global_mouse_position()).angle()
+	)
 	get_tree().current_scene.add_child(projectile)
 	print("-------------------------\nFired projectile\n-------------------------")
 
@@ -79,7 +86,7 @@ func air_move(delta: float):
 
 func apply_air_friction(delta: float):
 	var movement_direction = sign(_velocity.x)
-	_velocity.x = abs(_velocity.x) - AIR_FRICTION*delta
+	_velocity.x = abs(_velocity.x) - AIR_FRICTION * delta
 	_velocity.x = max(_velocity.x, 0)
 	_velocity.x *= movement_direction
 
