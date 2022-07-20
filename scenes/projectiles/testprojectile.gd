@@ -1,20 +1,25 @@
 class_name Projectile
 extends Area2D
 
-export var velocity: int = 500
-var player_velocity: Vector2
+
+const SPEED := 1500.0
 
 
-# initial position and velocity, resets cooldown
-func init(initial_velocity, player_position, angle) -> float:
-	global_position = player_position
-	player_velocity = initial_velocity
+var _velocity: Vector2
+var _initial_velocity: Vector2
+
+
+# TODO make a projectile originate not from the center of a the player, but from the gun itself
+
+
+func init(player: Player, angle: float):
+	global_position = player.global_position
+	_velocity = Vector2(SPEED, 0).rotated(angle)
 	rotation = angle
-	return 0.0
 
 
-func _physics_process(delta):
-	global_position += (velocity * Vector2.RIGHT.rotated(rotation) + player_velocity) * delta
+func _physics_process(delta: float):
+	global_position += _velocity * delta
 
 
 func destroy():
@@ -30,5 +35,4 @@ func _on_Projectile_body_entered(_body):
 
 
 func _on_VisibilityNotifier2D_screen_exited():
-	print("-------------------------\nRemoved projectile\n-------------------------")
 	queue_free()

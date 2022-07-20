@@ -9,7 +9,7 @@ func _ready():
 	assert(_player is Player)
 	assert(_state_machine is StateMachine)
 
-# BaseState interface implementation.
+# BaseState interface start.
 
 func _enter():
 	pass
