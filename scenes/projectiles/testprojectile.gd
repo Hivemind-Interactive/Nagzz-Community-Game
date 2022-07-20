@@ -2,6 +2,8 @@ class_name Projectile
 extends Area2D
 
 export var velocity: int = 500
+export var damage: int = 10
+
 var player_velocity: Vector2
 
 
