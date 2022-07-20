@@ -17,7 +17,6 @@ const ATTACK_COOLDOWN := 0.2
 
 const RUN_MAX_SPEED: float = 300.0
 
-const PowerupCard := preload("res://scenes/powerup_select/powerup_card.gd")
 
 enum MOVE_DIRECTION {
 	LEFT = -1,
@@ -30,7 +29,6 @@ export var can_player_jump := true
 export var can_player_interact := true
 
 onready var _state_machine = $StateMachine
-onready var _powerup_select_ui := $"UI/PowerupSelect" as Control
 
 var _velocity := Vector2.ZERO
 
@@ -39,7 +37,6 @@ var last_attack_time := 1.0
 
 func _ready():
 	assert(_state_machine != null)
-	assert(_powerup_select_ui != null)
 
 
 func _physics_process(delta: float):
