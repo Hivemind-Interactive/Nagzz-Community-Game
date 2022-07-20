@@ -15,8 +15,8 @@ func _ready():
 
 func pickup_weapon(weapon_script_path: String):
 	current_weapon = load(weapon_script_path).new(_player) as BaseWeapon
-	$WeaponSprite.set_texture(load(current_weapon.get_texture_path()))
-	current_weapon.on_picked()
+	$WeaponSprite.set_texture(load(current_weapon._get_texture_path()))
+	current_weapon._on_picked()
 	
 
 func clear_weapon():
@@ -36,11 +36,11 @@ func _physics_process(delta: float):
 	
 	rotate_to_cursor()
 	
-	current_weapon.physics_update(delta)
+	current_weapon._physics_update(delta)
 	
 	if Input.is_action_pressed("attack"):
-		current_weapon.on_fire(delta)
+		current_weapon._on_fire(delta)
 	
 	if Input.is_action_just_pressed("reload"):
-		current_weapon.on_reload(delta)
+		current_weapon._on_reload(delta)
 

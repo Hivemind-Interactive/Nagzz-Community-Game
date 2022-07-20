@@ -22,23 +22,23 @@ func _init(player):
 
 # BaseWeapon interface start.
 
-func on_fire(_delta: float):
+func _on_fire(_delta: float):
 	push_error("Must be implemented by a child class")
 
 
-func on_reload(_delta: float):
+func _on_reload(_delta: float):
 	push_error("Must be implemented by a child class")
 
 
-func on_picked():
+func _on_picked():
 	pass
 
 
-func physics_update(_delta: float):
+func _physics_update(_delta: float):
 	pass
 
 
-func get_texture_path() -> String:
+func _get_texture_path() -> String:
 	push_error("Must be implemented by a child class")
 	return ""
 

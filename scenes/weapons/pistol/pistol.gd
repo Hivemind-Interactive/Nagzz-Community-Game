@@ -15,25 +15,25 @@ func _init(player).(player):
 	pass
 
 
-func physics_update(delta: float):
+func _physics_update(delta: float):
 	last_attack_time += delta
 
 
-func on_fire(_delta: float):
+func _on_fire(_delta: float):
 	if last_attack_time >= attack_speed:
 		last_attack_time = 0.0
 		fire_projecile()
 
 
-func on_reload(_delta: float):
+func _on_reload(_delta: float):
 	push_error("Must be implemented by a child class")
 
 
-func on_picked():
+func _on_picked():
 	pass
 
 
-func get_texture_path() -> String:
+func _get_texture_path() -> String:
 	return "res://assets/placeholder/dummy_gun.png"
 
 
