@@ -1,7 +1,7 @@
 tool
 extends Node2D
 
-const Interactable := preload("res://scenes/interactable.gd")
+const Interactable := preload("res://scenes/interactable/interactable.gd")
 
 export(Shape2D) var shape = RectangleShape2D setget set_shape
 export(PackedScene) var scene_to_load
