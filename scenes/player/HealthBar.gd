@@ -14,5 +14,4 @@ func set_max_health_bar(value):
 
 func set_health_bar(value):
 	self.value = value
-
-
+	

@@ -31,5 +31,4 @@ func set_health(new_health):
 func _initialize():
 	emit_signal("max_health_changed", max_health)
 	emit_signal("health_changed", health)
-
-
+	
