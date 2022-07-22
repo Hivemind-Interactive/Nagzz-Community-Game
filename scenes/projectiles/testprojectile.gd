@@ -8,7 +8,6 @@ export var damage: int = 10
 var _velocity: Vector2
 var _initial_velocity: Vector2
 
-
 # TODO make a projectile originate not from the center of a the player, but from the gun itself
 
 

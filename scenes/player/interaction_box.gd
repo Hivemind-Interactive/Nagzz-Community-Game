@@ -7,7 +7,7 @@ onready var _player := find_parent("Player") as Player
 
 
 func _process(_delta):
-	if Input.is_action_just_pressed("interact") and _player.can_player_interact:
+	if Input.is_action_just_pressed("interact"):
 		_interact()
 
 
@@ -15,7 +15,7 @@ func _interact():
 	print("interaction started")
 
 	var closest = _get_closest_interactable()
-	
+
 	if closest != null:
 		closest.emit_signal("interacted", _player)
 
@@ -28,20 +28,16 @@ func _get_closest_interactable() -> Area2D:
 		return _interactables[0]
 
 	var closest: Area2D = _interactables[0]
-	var closest_distance := closest.global_position.distance_to(
-		self.global_position
-	)
+	var closest_distance := closest.global_position.distance_to(self.global_position)
 
 	for i in range(1, _interactables.size()):
-		var distance = _interactables[i].global_position.distance_to(
-			self.global_position
-		)
+		var distance = _interactables[i].global_position.distance_to(self.global_position)
 
 		# if distance is the same, first has prority
 		if distance < closest_distance:
 			closest = _interactables[i]
 			closest_distance = distance
-		
+
 	return closest
 
 

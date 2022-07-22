@@ -1,19 +1,18 @@
 class_name InAir
 extends BaseState
 
-
 var _coyote_time_elapsed := 0.0
 
 
 func _enter():
 	._enter()
 	_coyote_time_elapsed = 0.0
-	
-	
+
+
 func _exit():
 	._exit()
-	
-	
+
+
 func _update(delta: float):
 	._update(delta)
 
@@ -24,14 +23,10 @@ func _update(delta: float):
 	_player.apply_gravity(delta)
 
 	_coyote_time_elapsed += delta
-	if (
-			Input.is_action_just_pressed("jump") 
-			and _coyote_time_elapsed <= _player.COYOTE_TIME_SECS
-	):
+	if Input.is_action_just_pressed("jump") and _coyote_time_elapsed <= _player.COYOTE_TIME_SECS:
 		print("-------------------------\nCoyote time jump\n-------------------------")
 		_state_machine.transition_to(_state_machine.State.JUMP)
 		return
 
 	_player.air_move(delta)
 	_player.move_player(delta)
-

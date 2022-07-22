@@ -9,13 +9,12 @@ const AIR_MOVE_ACCELERATION := 625.0
 # So that the player falls faster than accelerates upwards.
 const JUMP_FALL_MULTIPLIER: float = 1.3
 # Jump buffer time, in seconds.
-const JUMP_BUFFER_TIME_SECS := 0.12 # Rougly 7 frames at 60 FPS.
+const JUMP_BUFFER_TIME_SECS := 0.12  # Rougly 7 frames at 60 FPS.
 const JUMP_CUT_FORCE := 200
 # Coyote time https://developer.amazon.com/blogs/appstore/post/9d2094ed-53cb-4a3a-a5cf-c7f34bca6cd3/coding-imprecise-controls-to-make-them-feel-more-precise
 const COYOTE_TIME_SECS := 0.1
 
 const RUN_MAX_SPEED: float = 300.0
-
 
 enum MOVE_DIRECTION {
 	LEFT = -1,
@@ -24,8 +23,6 @@ enum MOVE_DIRECTION {
 }
 # Consts end
 
-
-onready var weapon = $Weapon
 onready var _state_machine = $StateMachine
 
 var velocity := Vector2.ZERO
@@ -37,11 +34,6 @@ func _ready():
 
 func _physics_process(delta: float):
 	_state_machine.update(delta)
-	$StatusLabelDebug.text = "%s\n x: %3.2f  y: %3.2f" % [
-			_state_machine.State.keys()[_state_machine.current_state],
-			velocity.x,
-			velocity.y
-	]
 
 
 func move_player(_delta: float):

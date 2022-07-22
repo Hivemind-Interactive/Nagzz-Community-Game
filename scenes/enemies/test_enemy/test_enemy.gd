@@ -15,9 +15,7 @@ func _on_HitBox_area_entered(area: Area2D):
 		var projectile = area as Projectile
 
 		health -= projectile.damage
-		print(
-			"enemy received %d damage, health: %d" % [projectile.damage, health]
-		)
+		print("enemy received %d damage, health: %d" % [projectile.damage, health])
 
 		if health <= 0:
 			queue_free()

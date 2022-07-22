@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/player/on_ground.gd" type="Script" id=1]
 [ext_resource path="res://scenes/player/player.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/powerup_select/powerup_select.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/player/weapon.gd" type="Script" id=9]
 [ext_resource path="res://scenes/player/in_air.gd" type="Script" id=10]
+[ext_resource path="res://scenes/player/reload.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=5]
 
@@ -25,7 +26,6 @@ animations = [ {
 extents = Vector2( 22.2727, 32 )
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 233, 43 )
 collision_layer = 2
 collision_mask = 3
 script = ExtResource( 2 )
@@ -60,17 +60,8 @@ position = Vector2( 0.5, 0 )
 scale = Vector2( 0.765625, 1 )
 frames = SubResource( 4 )
 
-[node name="StatusLabelDebug" type="Label" parent="."]
-margin_left = -70.0
-margin_top = -64.0
-margin_right = 73.0
-margin_bottom = -32.0
-text = "ON_GROUND
-x: 1024  y: 4534"
-align = 1
-valign = 1
-
 [node name="VelocityDirectionDebugArrow" type="Line2D" parent="."]
+visible = false
 position = Vector2( 0, 0.5 )
 scale = Vector2( 1, 0.55 )
 points = PoolVector2Array( 0, 0, 29, 0 )
@@ -83,7 +74,6 @@ script = ExtResource( 9 )
 position = Vector2( 16, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, 0 )
 scale = Vector2( 1.1, 1 )
 shape = SubResource( 6 )
 
@@ -96,5 +86,33 @@ current = true
 pause_mode = 2
 visible = false
 
+[node name="ReloadIndicator" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="LeftBar" type="Polygon2D" parent="ReloadIndicator"]
+position = Vector2( -40, -65 )
+color = Color( 0.784314, 0.784314, 0.784314, 1 )
+polygon = PoolVector2Array( 0, 0, 6, 0, 6, 10, 0, 10 )
+
+[node name="RightBar" type="Polygon2D" parent="ReloadIndicator"]
+position = Vector2( 34, -65 )
+color = Color( 0.784314, 0.784314, 0.784314, 1 )
+polygon = PoolVector2Array( 0, 0, 6, 0, 6, 10, 0, 10 )
+
+[node name="HorizontalBar" type="Polygon2D" parent="ReloadIndicator"]
+position = Vector2( -32, -62 )
+color = Color( 0.784314, 0.784314, 0.784314, 1 )
+polygon = PoolVector2Array( 0, 0, 64, 0, 64, 4, 0, 4 )
+
+[node name="ProgressIndicator" type="Polygon2D" parent="ReloadIndicator"]
+position = Vector2( -32, -64 )
+scale = Vector2( 1, 1.16667 )
+color = Color( 0.745098, 0.745098, 0.745098, 1 )
+polygon = PoolVector2Array( 0, 0, 4, 0, 4, 6.85714, 0, 6.85714 )
+
+[node name="ProgressTween" type="Tween" parent="ReloadIndicator"]
+
 [connection signal="area_entered" from="InteractionBox" to="InteractionBox" method="_on_InteractionBox_area_entered"]
 [connection signal="area_exited" from="InteractionBox" to="InteractionBox" method="_on_InteractionBox_area_exited"]
+[connection signal="tween_completed" from="ReloadIndicator/ProgressTween" to="ReloadIndicator" method="_on_ProgressTween_tween_completed"]
+[connection signal="tween_started" from="ReloadIndicator/ProgressTween" to="ReloadIndicator" method="_on_ProgressTween_tween_started"]

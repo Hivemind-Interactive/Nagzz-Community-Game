@@ -41,9 +41,7 @@ func _ready():
 
 	_name_node.bbcode_text = str("[center]", props.name, "[/center]")
 	_image_node.texture = props.texture
-	_description_node.bbcode_text = str(
-		"[center]", props.description, "[/center]"
-	)
+	_description_node.bbcode_text = str("[center]", props.description, "[/center]")
 
 
 func _on_SelectButton_pressed():
