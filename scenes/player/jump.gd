@@ -1,7 +1,6 @@
 class_name Jump
 extends BaseState
 
-
 var _last_jump_pressed_elapsed_time := 0.0
 
 
@@ -22,7 +21,7 @@ func apply_jump_force():
 
 func _update(delta: float):
 	._update(delta)
-	
+
 	if Input.is_action_just_released("jump") and _player.velocity.y <= -_player.JUMP_CUT_FORCE:
 		_player.velocity.y += _player.JUMP_CUT_FORCE
 
@@ -42,4 +41,3 @@ func _update(delta: float):
 			apply_jump_force()
 		else:
 			_state_machine.transition_to(StateMachine.State.ON_GROUND)
-

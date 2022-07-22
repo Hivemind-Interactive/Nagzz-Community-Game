@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/player/base_state.gd"
 }, {
-"base": "Node",
+"base": "Object",
 "class": "BaseWeapon",
 "language": "GDScript",
 "path": "res://scenes/weapons/base_weapon.gd"

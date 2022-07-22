@@ -9,30 +9,34 @@ func _ready():
 	assert(_player is Player)
 	assert(_state_machine is StateMachine)
 
+
 # BaseState interface start.
+
 
 func _enter():
 	pass
-	
+
+
 func _exit():
 	pass
+
 
 func _update(_delta: float):
 	pass
 
-# BaseState interface end.
 
+# BaseState interface end.
 
 
 # Called by StateMachine.
 func physics_process(delta: float):
 	if (
-			Input.is_action_just_pressed("jump") 
-			and _player.can_jump() 
-			and _state_machine.current_state != _state_machine.State.JUMP
+		Input.is_action_just_pressed("jump")
+		and _player.can_jump()
+		and _state_machine.current_state != _state_machine.State.JUMP
 	):
 		_state_machine.transition_to(_state_machine.State.JUMP)
 		_state_machine.get_current_state()._update(delta)
 		return
-		
+
 	_update(delta)
